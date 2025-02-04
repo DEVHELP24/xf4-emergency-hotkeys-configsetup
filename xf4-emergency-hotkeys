@@ -1,24 +1,19 @@
 #!/bin/bash
 
+# This script sets up hotkeys for locking the screen and managing network connectivity in XFCE.
+
+echo "Setting up hotkeys..."
+
 # Hotkey for xflock4 (e.g., Super+L)
-gsettings set org.xfce.desktop.keybindings display-logout "['<Super>l']"
+# This command sets a custom keyboard shortcut to lock the screen using xflock4.
+xfconf-query -c xfce4-keyboard-shortcuts -p "/commands/custom/<Super>l" -n -t string -s "xflock4"
 
 # Hotkey for nmcli networking on (e.g., Super+N)
-gsettings set org.xfce.desktop.keybindings custom-keybindings "['<Super>n']"
+# This command sets a custom keyboard shortcut to enable networking using nmcli.
+xfconf-query -c xfce4-keyboard-shortcuts -p "/commands/custom/<Super>n" -n -t string -s "nmcli networking on"
 
 # Hotkey for nmcli networking off (e.g., Super+M)
-gsettings set org.xfce.desktop.keybindings custom-keybindings "['<Super>m']"
+# This command sets a custom keyboard shortcut to disable networking using nmcli.
+xfconf-query -c xfce4-keyboard-shortcuts -p "/commands/custom/<Super>m" -n -t string -s "nmcli networking off"
 
-# Add custom keybindings
-gsettings set org.xfce.desktop.keybindings.custom-keybindings:/org/xfce/desktop/keybindings/custom-keybindings/<Super>n/ name 'Network On'
-gsettings set org.xfce.desktop.keybindings.custom-keybindings:/org/xfce/desktop/keybindings/custom-keybindings/<Super>n/ command 'nmcli networking on'
-gsettings set org.xfce.desktop.keybindings.custom-keybindings:/org/xfce/desktop/keybindings/custom-keybindings/<Super>n/ binding '<Super>n'
-
-gsettings set org.xfce.desktop.keybindings.custom-keybindings:/org/xfce/desktop/keybindings/custom-keybindings/<Super>m/ name 'Network Off'
-gsettings set org.xfce.desktop.keybindings.custom-keybindings:/org/xfce/desktop/keybindings/custom-keybindings/<Super>m/ command 'nmcli networking off'
-gsettings set org.xfce.desktop.keybindings.custom-keybindings:/org/xfce/desktop/keybindings/custom-keybindings/<Super>m/ binding '<Super>m'
-
-# Hotkey for xflock4 (e.g., Super+X)
-gsettings set org.xfce.desktop.keybindings.custom-keybindings:/org/xfce/desktop/keybindings/custom-keybindings/<Super>x/ name 'Lock Screen'
-gsettings set org.xfce.desktop.keybindings.custom-keybindings:/org/xfce/desktop/keybindings/custom-keybindings/<Super>x/ command 'xflock4'
-gsettings set org.xfce.desktop.keybindings.custom-keybindings:/org/xfce/desktop/keybindings/custom-keybindings/<Super>x/ binding '<Super>x'
+echo "Hotkeys have been set up successfully."
