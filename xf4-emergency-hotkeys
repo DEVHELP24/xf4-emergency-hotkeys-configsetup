@@ -1,19 +1,22 @@
 #!/bin/bash
 
-# This script sets up hotkeys for locking the screen and managing network connectivity in XFCE.
-
 echo "Setting up hotkeys..."
 
-# Hotkey for xflock4 (e.g., Super+L)
-# This command sets a custom keyboard shortcut to lock the screen using xflock4.
-xfconf-query -c xfce4-keyboard-shortcuts -p "/commands/custom/<Super>l" -n -t string -s "xflock4"
+# Function to set a hotkey and check for errors
+set_hotkey() {
+    local key="$1"
+    local command="$2"
+    if xfconf-query -c xfce4-keyboard-shortcuts -p "/commands/custom/$key" -n -t string -s "$command"; then
+        echo "Hotkey for $command set to $key."
+    else
+        echo "Failed to set hotkey for $command to $key." >&2
+    fi
+}
 
-# Hotkey for nmcli networking on (e.g., Super+N)
-# This command sets a custom keyboard shortcut to enable networking using nmcli.
-xfconf-query -c xfce4-keyboard-shortcuts -p "/commands/custom/<Super>n" -n -t string -s "nmcli networking on"
-
-# Hotkey for nmcli networking off (e.g., Super+M)
-# This command sets a custom keyboard shortcut to disable networking using nmcli.
-xfconf-query -c xfce4-keyboard-shortcuts -p "/commands/custom/<Super>m" -n -t string -s "nmcli networking off"
+# Set hotkeys
+set_hotkey "<Super>l" "xflock4"                     # Lock screen
+set_hotkey "<Super>n" "nmcli networking on"         # Enable networking
+set_hotkey "<Super>m" "nmcli networking off"        # Disable networking
+set_hotkey "<Super>d" "xfwm4 --minimize-all"        # Minimize all windows
 
 echo "Hotkeys have been set up successfully."
